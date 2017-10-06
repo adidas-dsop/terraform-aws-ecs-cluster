@@ -83,6 +83,7 @@ resource "aws_iam_role_policy_attachment" "ecs_service_autoscaling_role" {
 # Security group resources
 #
 resource "aws_security_group" "container_instance" {
+  name = "${var.project}-${var.environment}-ecs-sg"
   vpc_id = "${var.vpc_id}"
 
   tags {
@@ -90,6 +91,21 @@ resource "aws_security_group" "container_instance" {
     Project     = "${var.project}"
     Environment = "${var.environment}"
   }
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 
 #
