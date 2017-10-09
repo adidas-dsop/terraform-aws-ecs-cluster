@@ -116,3 +116,6 @@ variable "low_memory_period_seconds" {
 variable "low_memory_threshold_percent" {
   default = "10"
 }
+
+variable "security_group_id" {
+}

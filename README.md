@@ -17,6 +17,7 @@ module "container_service_cluster" {
   source = "github.com/azavea/terraform-aws-ecs-cluster?ref=0.1.0"
 
   vpc_id        = "vpc-20f74844"
+  security_group_id = "sg123456"
   ami_id        = "ami-b2df2ca4"
   instance_type = "t2.micro"
   key_name      = "hector"
@@ -79,6 +80,8 @@ module "container_service_cluster" {
 - `low_memory_threshold_percent` - Threshold as a percentage for low memory alarm (default: `10`)
 - `project` - Name of project this cluster is for (default: `Unknown`)
 - `environment` - Name of environment this cluster is targeting (default: `Unknown`)
+- `security_group_id` - The id of a previously created security group for the instances.
+
 
 ## Outputs
 
