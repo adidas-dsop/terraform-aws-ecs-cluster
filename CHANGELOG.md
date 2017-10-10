@@ -1,3 +1,7 @@
+## 0.5.0 
+- Security groups shall be created outside of the module
+- More configurable container instance tagging
+
 ## 0.4.0
 - Create ECS Service and Autoscaling IAM roles.
 - Output IAM Role names and ARNs.

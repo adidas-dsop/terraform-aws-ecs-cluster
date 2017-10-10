@@ -80,19 +80,6 @@ resource "aws_iam_role_policy_attachment" "ecs_service_autoscaling_role" {
 }
 
 #
-# Security group resources
-#
-resource "aws_security_group" "container_instance" {
-  vpc_id = "${var.vpc_id}"
-
-  tags {
-    Name        = "sgContainerInstance"
-    Project     = "${var.project}"
-    Environment = "${var.environment}"
-  }
-}
-
-#
 # AutoScaling resources
 #
 data "template_file" "container_instance_base_cloud_config" {
@@ -132,7 +119,7 @@ resource "aws_launch_configuration" "container_instance" {
   image_id             = "${var.ami_id}"
   instance_type        = "${var.instance_type}"
   key_name             = "${var.key_name}"
-  security_groups      = ["${aws_security_group.container_instance.id}"]
+  security_groups      = ["${var.security_groups}"]
   user_data            = "${data.template_cloudinit_config.container_instance_cloud_config.rendered}"
 }
 
@@ -150,18 +137,18 @@ resource "aws_autoscaling_group" "container_instance" {
 
   tag {
     key                 = "Name"
-    value               = "ContainerInstance"
+    value               = "${var.container_instance_name}"
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "Project"
+    key                 = "${var.project_tag_name}"
     value               = "${var.project}"
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "Environment"
+    key                 = "${var.environment_tag_name}"
     value               = "${var.environment}"
     propagate_at_launch = true
   }
