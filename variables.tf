@@ -18,6 +18,10 @@ variable "root_block_device_size" {
   default = "8"
 }
 
+variable "security_groups" {
+  type = "list"
+}
+
 variable "instance_type" {
   default = "t2.micro"
 }
@@ -59,6 +63,18 @@ variable "enabled_metrics" {
 
 variable "private_subnet_ids" {
   type = "list"
+}
+
+variable "container_instance_name" {
+  default = "ContainerInstance"
+}
+
+variable "project_tag_name" {
+  default = "Project"
+}
+
+variable "environment_tag_name" {
+  default = "Environment"
 }
 
 variable "scale_up_cooldown_seconds" {
@@ -115,7 +131,4 @@ variable "low_memory_period_seconds" {
 
 variable "low_memory_threshold_percent" {
   default = "10"
-}
-
-variable "security_group_id" {
 }
